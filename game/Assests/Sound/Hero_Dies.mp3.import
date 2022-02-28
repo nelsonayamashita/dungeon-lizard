@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Hero_Dies.mp3-cd4e212241f5428b9e051b142ff12c37.mp3str"
+
+[deps]
+
+source_file="res://Assests/Sound/Hero_Dies.mp3"
+dest_files=[ "res://.import/Hero_Dies.mp3-cd4e212241f5428b9e051b142ff12c37.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

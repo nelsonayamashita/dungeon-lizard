@@ -1,0 +1,79 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Levels/Spawner/Spawner.gd" type="Script" id=1]
+[ext_resource path="res://Assests/0x72_DungeonTilesetII_v1.4.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+custom_solver_bias = 1.0
+extents = Vector2( 8, 8 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 24, 8 )
+
+[node name="Spawner" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="s_1" type="Area2D" parent="." groups=["spawners"]]
+position = Vector2( 8, 8 )
+collision_layer = 16
+collision_mask = 4
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="s_1"]
+shape = SubResource( 1 )
+one_way_collision_margin = 16.0
+
+[node name="Sprite" type="Sprite" parent="s_1"]
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 96, 144, 16, 16 )
+
+[node name="s_2" type="Area2D" parent="." groups=["spawners"]]
+position = Vector2( 24, 8 )
+collision_layer = 16
+collision_mask = 4
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="s_2"]
+shape = SubResource( 1 )
+one_way_collision_margin = 16.0
+
+[node name="Sprite2" type="Sprite" parent="s_2"]
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 96, 144, 16, 16 )
+
+[node name="s_3" type="Area2D" parent="." groups=["spawners"]]
+position = Vector2( 40, 8 )
+collision_layer = 16
+collision_mask = 4
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="s_3"]
+shape = SubResource( 1 )
+one_way_collision_margin = 16.0
+
+[node name="Sprite3" type="Sprite" parent="s_3"]
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 96, 144, 16, 16 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 24, 8 )
+shape = SubResource( 2 )
+
+[connection signal="body_entered" from="s_1" to="." method="_on_s_1_body_entered"]
+[connection signal="body_exited" from="s_1" to="." method="_on_s_1_body_exited"]
+[connection signal="body_entered" from="s_2" to="." method="_on_s_2_body_entered"]
+[connection signal="body_exited" from="s_2" to="." method="_on_s_2_body_exited"]
+[connection signal="body_entered" from="s_3" to="." method="_on_s_3_body_entered"]
+[connection signal="body_exited" from="s_3" to="." method="_on_s_3_body_exited"]

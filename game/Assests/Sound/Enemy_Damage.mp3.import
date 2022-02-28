@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Enemy_Damage.mp3-0f314789e800645ac164fbdd33acbbd6.mp3str"
+
+[deps]
+
+source_file="res://Assests/Sound/Enemy_Damage.mp3"
+dest_files=[ "res://.import/Enemy_Damage.mp3-0f314789e800645ac164fbdd33acbbd6.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

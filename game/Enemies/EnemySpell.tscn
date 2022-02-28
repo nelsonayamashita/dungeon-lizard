@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Enemies/EnemySpell.gd" type="Script" id=1]
+[ext_resource path="res://Assests/bullt.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 3, 3 )
+
+[sub_resource type="Gradient" id=2]
+colors = PoolColorArray( 0.239216, 0.45098, 0.309804, 1, 0.592157, 0.854902, 0.247059, 1 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="Curve" id=4]
+max_value = 1.5
+_data = [ Vector2( 0, 1.5 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.0409091 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+emission_shape = 1
+emission_sphere_radius = 1.0
+flag_disable_z = true
+direction = Vector3( 1, 1, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 10.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale_curve = SubResource( 5 )
+color_ramp = SubResource( 3 )
+
+[node name="EnemySpell" type="Area2D" groups=["enemies"]]
+collision_layer = 4
+collision_mask = 19
+script = ExtResource( 1 )
+speed = 100
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 1, 1 )
+shape = SubResource( 1 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 1, 1 )
+scale = Vector2( 0.3, 0.3 )
+
+[node name="Explosion" type="Particles2D" parent="."]
+emitting = false
+amount = 16
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.5
+local_coords = false
+process_material = SubResource( 6 )
+
+[connection signal="area_entered" from="." to="." method="_on_EnemySpell_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_EnemySpell_body_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

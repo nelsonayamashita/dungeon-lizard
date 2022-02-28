@@ -1,0 +1,72 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Assests/0x72_DungeonTilesetII_v1.4.png" type="Texture" id=1]
+
+[node name="Aesthetic" type="Node"]
+
+[node name="Wall_top_begin_3" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 48, 0, 16, 16 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Wall_top_begin_1" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 16, 0, 16, 16 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Wall_top_begin_2" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 32, 0, 16, 16 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Wall_right_begin" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 112, 16, 16 )
+region_filter_clip = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Wall_right_end" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 16, 144, 16, 16 )
+region_filter_clip = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Wall_left_end" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 144, 16, 16 )
+region_filter_clip = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Wall_left_begin" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 16, 112, 16, 16 )
+region_filter_clip = true
+__meta__ = {
+"_edit_group_": true
+}

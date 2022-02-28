@@ -1,0 +1,261 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assests/0x72_DungeonTilesetII_v1.4.png" type="Texture" id=2]
+[ext_resource path="res://Enemies/BoneBullet.tscn" type="PackedScene" id=3]
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends \"res://Enemies/Enemy.gd\"
+
+signal life_changed
+signal shoot
+signal boss_died
+
+export (PackedScene) var Bullet
+export (int) var borc_speed
+export (int) var borc_health
+
+var current_dir
+
+func _ready():
+	speed = borc_speed
+	health = borc_health
+	base_speed = borc_speed
+	$Bone.hide()
+
+
+func set_up(_position, _target, _pathfinding):
+	position = _position
+	target = _target
+	pathfinding = _pathfinding
+	current_dir = calculate_dir()
+	$Sprite.modulate.a = 0.5
+	$ActionTimer.stop()
+	set_physics_process(false)
+
+
+func activate():
+	$Sprite.modulate.a = 1
+	$ActionTimer.start()
+	set_physics_process(true)
+
+
+func _physics_process(delta):
+	$Sprite.flip_h = current_dir.x < 0 
+	move_and_slide(current_dir * speed)
+	for i in get_slide_count():
+		var collision = get_slide_collision(i)
+		if collision.collider.is_in_group(\"obstacles\"):
+			current_dir = calculate_dir()
+
+
+func take_damage(damage):
+	health -= damage
+	emit_signal(\"life_changed\", health)
+	if health <= 0:
+		emit_signal(\"died\", global_position)
+		emit_signal(\"boss_died\")
+		$AnimationPlayer.stop()
+		$Bone.hide()
+		dead = true
+		explode()
+	else:
+		blink(0.1)
+
+
+func calculate_dir():
+	var path = pathfinding.get_new_path(global_position, target.global_position)
+	var dir
+	if path.size() > 1:
+		dir = position.direction_to(path[1])
+	else:
+		dir = (target.global_position - global_position).normalized()
+	return dir
+
+
+func shoot_pulse(n, delay):
+	for i in range(n):
+		shoot()
+		yield(get_tree().create_timer(delay), \"timeout\")
+	
+
+func shoot():
+	var dir = target.global_position - global_position
+	dir = dir.rotated(rand_range(-0.1, 0.1)).angle()
+	emit_signal(\"shoot\", Bullet, global_position, dir)
+
+
+func _on_ActionTimer_timeout():
+	current_dir = calculate_dir()
+	$ActionTimer.stop()
+	speed = 0
+	$AnimationPlayer.play(\"cast\")
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == \"cast\":
+		shoot_pulse(6, 0.2)
+		speed = borc_speed
+		$AnimationPlayer.play(\"run\")
+		$ActionTimer.start()
+"
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 8, 9 )
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bone:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Bone:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 4, 2 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bone:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "cast"
+length = 0.8
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bone:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Bone:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 4, 2 ), Vector2( 4, -8 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bone:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "run"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 4, 5, 6, 7 ]
+}
+
+[node name="BoneBoss" instance=ExtResource( 1 )]
+collision_mask = 22
+script = SubResource( 4 )
+Bullet = ExtResource( 3 )
+borc_speed = 50
+borc_health = 70
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2( 0, 5 )
+shape = SubResource( 5 )
+
+[node name="AnimationPlayer" parent="." index="2"]
+autoplay = "run"
+anims/RESET = SubResource( 1 )
+anims/cast = SubResource( 2 )
+anims/run = SubResource( 3 )
+
+[node name="Sprite" parent="." index="4"]
+texture = ExtResource( 2 )
+hframes = 8
+region_enabled = true
+region_rect = Rect2( 16, 272, 256, 32 )
+
+[node name="Bone" type="Sprite" parent="." index="7"]
+position = Vector2( 4, 2 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 400, 80, 16, 16 )
+
+[node name="ActionTimer" type="Timer" parent="." index="8"]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="ActionTimer" to="." method="_on_ActionTimer_timeout"]

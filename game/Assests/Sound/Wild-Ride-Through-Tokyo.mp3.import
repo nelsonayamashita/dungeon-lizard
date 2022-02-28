@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Wild-Ride-Through-Tokyo.mp3-31ae092694577c2270276bca587ede7f.mp3str"
+
+[deps]
+
+source_file="res://Assests/Sound/Wild-Ride-Through-Tokyo.mp3"
+dest_files=[ "res://.import/Wild-Ride-Through-Tokyo.mp3-31ae092694577c2270276bca587ede7f.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

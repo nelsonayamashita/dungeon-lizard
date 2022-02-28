@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Arcade-Adventures_Looping.mp3-0a256a9ca37e098731d20f93b500e0ff.mp3str"
+
+[deps]
+
+source_file="res://Assests/Sound/Arcade-Adventures_Looping.mp3"
+dest_files=[ "res://.import/Arcade-Adventures_Looping.mp3-0a256a9ca37e098731d20f93b500e0ff.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

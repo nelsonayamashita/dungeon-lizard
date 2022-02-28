@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Assests/0x72_DungeonTilesetII_v1.4.png" type="Texture" id=1]
+
+[node name="FloorTileMaker" type="Node"]
+
+[node name="Floor_1" type="Sprite" parent="."]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 16, 64, 16, 16 )
+
+[node name="Floor_2" type="Sprite" parent="."]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 32, 64, 16, 16 )
+
+[node name="Floor_3" type="Sprite" parent="."]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 48, 64, 16, 16 )
+
+[node name="Floor_4" type="Sprite" parent="."]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 16, 80, 16, 16 )
+
+[node name="Floor_5" type="Sprite" parent="."]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 32, 80, 16, 16 )
+
+[node name="Floor_6" type="Sprite" parent="."]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 48, 80, 16, 16 )
+
+[node name="Floor_7" type="Sprite" parent="."]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 16, 96, 16, 16 )
+
+[node name="Floor_8" type="Sprite" parent="."]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 32, 96, 16, 16 )
+
+[node name="Floor_9" type="Sprite" parent="."]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 48, 96, 16, 16 )

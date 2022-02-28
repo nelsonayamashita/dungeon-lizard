@@ -1,0 +1,79 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assests/0x72_DungeonTilesetII_v1.4.png" type="Texture" id=2]
+[ext_resource path="res://Enemies/Goo.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6, 6 )
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "run"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "run_transform"
+length = 0.8
+loop = true
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[node name="Goo" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+goo_speed = 10
+goo_health = 5
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2( 0, 2 )
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" parent="." index="2"]
+autoplay = "run"
+anims/RESET = SubResource( 2 )
+anims/run = SubResource( 3 )
+anims/run_transform = SubResource( 4 )
+
+[node name="Sprite" parent="." index="4"]
+texture = ExtResource( 2 )
+hframes = 8
+region_enabled = true
+region_rect = Rect2( 368, 112, 128, 16 )

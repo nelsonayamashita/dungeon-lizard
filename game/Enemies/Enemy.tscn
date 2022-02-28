@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assests/Sound/Enemy_Dies.mp3" type="AudioStream" id=1]
+[ext_resource path="res://Enemies/Enemy.gd" type="Script" id=2]
+[ext_resource path="res://Explosions/GreenExplosion.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assests/Sound/Enemy_Damage.mp3" type="AudioStream" id=4]
+
+[node name="Enemy" type="KinematicBody2D" groups=["enemies", "obstacles"]]
+collision_layer = 4
+collision_mask = 6
+script = ExtResource( 2 )
+
+[node name="Explosion" parent="." instance=ExtResource( 3 )]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="DebuffTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="Sprite" type="Sprite" parent="."]
+
+[node name="Death1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="Death2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = -5.0

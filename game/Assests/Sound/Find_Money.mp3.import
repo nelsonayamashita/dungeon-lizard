@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Find_Money.mp3-a3dc39937101adbfbcd7088ab61bb72d.mp3str"
+
+[deps]
+
+source_file="res://Assests/Sound/Find_Money.mp3"
+dest_files=[ "res://.import/Find_Money.mp3-a3dc39937101adbfbcd7088ab61bb72d.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

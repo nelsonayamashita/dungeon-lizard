@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Assests/0x72_DungeonTilesetII_v1.4.png" type="Texture" id=1]
+[ext_resource path="res://Player/Sword.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16.75, 8 )
+
+[sub_resource type="Gradient" id=2]
+colors = PoolColorArray( 0.980392, 0.796078, 0.243137, 1, 0.843137, 0.207843, 0.00784314, 1 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="Curve" id=4]
+min_value = 1.0
+max_value = 2.5
+_data = [ Vector2( 0, 2.5 ), 0.0, 0.0, 0, 0, Vector2( 1, 1.02045 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+emission_shape = 1
+emission_sphere_radius = 1.0
+flag_disable_z = true
+direction = Vector3( -1, 1, 0 )
+spread = 90.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 30.0
+initial_velocity_random = 0.3
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale_curve = SubResource( 5 )
+color_ramp = SubResource( 3 )
+
+[node name="Sword" type="Area2D"]
+collision_mask = 6
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+rotation = 1.57029
+scale = Vector2( 2.2, 2.2 )
+texture = ExtResource( 1 )
+offset = Vector2( 0, -16 )
+region_enabled = true
+region_rect = Rect2( 304, 24, 16, 24 )
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2( 41.25, 0 )
+shape = SubResource( 1 )
+
+[node name="Sparkles" type="Particles2D" parent="."]
+position = Vector2( 48, 0 )
+emitting = false
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 0.5
+local_coords = false
+process_material = SubResource( 6 )
+
+[connection signal="body_entered" from="." to="." method="_on_Sword_body_entered"]
